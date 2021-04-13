@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="D:/APITesting/Endava/ModularFramework/src/test/java/com/amazon/tests/CheckShoppingCartTests.java"><classes><class name="com.amazon.tests.CheckShoppingCartTests"><methods><include name="verifyCartSubtotalWhenUserAddProductIntoIt"/><include name="test100"/></methods></class></classes></test></suite>
