@@ -51,43 +51,33 @@ public class CheckShoppingCartTests extends BaseTest {
         // Set quantity to ProductDTO
         product.setQuantity(productQuantity);
 
+        // Click on first product from product list
+        productResultsPage.clickOnFirstProductFromResult();
+
         // Get price, add product to card with quantity
         if (product.getPrice() == null) {
-            productResultsPage.clickOnFirstProductFromResult();
+            // Click on "See All Buying Choices" button
             productPage.clickSeeAllBuyingChoicesButton();
+            // Set price
             product.setPrice(productPage.getPriceFromProductList());
+            // Add product from Offer List to Card
             productPage.addProductFromOfferListToCart();
+            // Navigate to Cart page
             productPage.navigateToCart();
+            // Add product quantity
             cartPage.addProductQuantity(productQuantity);
         } else {
-            productResultsPage.clickOnFirstProductFromResult();
+            // Set quantity/change quantity
             product.setQuantity(productPage.addProductQuantity(productQuantity));
+            // Add product to card from Product Details page
             productPage.addProductToCardFromProductDetailsPage();
+            // Navigate to Card page
             productPage.navigateToCart();
         }
+
+        // Assert page title
         cartPage.assertPageTitle();
-
+        // Assert product title, price and quantity
         cartPage.verifyProductDetails(product);
-
-    }
-
-    @Test
-    public void test100() {
-        reportUtils.createATestCase("Verify add products to cart functionality2222");
-        reportUtils.addTestLog(Status.INFO, "Adding products to cart22222");
-        ProductPage productPage = new ProductPage(driver);
-        driver.navigate().to("https://www.amazon.com/Princess-Summertime-Reindeer-Exclusive-LEGO/dp/B01MQL3AFL/ref=sr_1_25_sspa?dchild=1&keywords=Star+Wars&qid=1618255293&refinements=p_36%3A500-50000%2Cp_89%3ALEGO&rnid=2528832011&s=toys-and-games&sr=1-25-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExOTdQNkZKWFgxUFBQJmVuY3J5cHRlZElkPUEwNzc4MDkxVUY4N0VMTTZUVkRKJmVuY3J5cHRlZEFkSWQ9QTAzOTgxODUyUkgwQkQ0N1Q5Mzg4JndpZGdldE5hbWU9c3BfYXRmX25leHQmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl");
-
-        int productQuantity = 3;
-        Product product = new Product("1Princess Lego Disney Castle Mini Sets Cinderella Fun Frozen Set + Lego Creator Seasonal Exclusive Set Lego Polybag Edition Building Set Elsa's Throne Winter");
-
-
-        product.setQuantity(productPage.addProductQuantity(productQuantity));
-        productPage.addProductToCardFromProductDetailsPage();
-        productPage.navigateToCart();
-
-
-        new CartPage(driver).verifyProductDetails(product);
-
     }
 }

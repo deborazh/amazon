@@ -1,6 +1,7 @@
 package com.amazon.pages;
 
 import com.amazon.dto.Product;
+import com.amazon.utils.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,25 +36,44 @@ public class CartPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Add Product Quantity
+     *
+     * @param quantity int
+     */
     public void addProductQuantity(int quantity){
         Select select = new Select(quantitySelect);
         select.selectByVisibleText(String.valueOf(quantity));
+        WaitUtils.untilClickable(driver, quantitySelect);
     }
 
+    /**
+     * Get selected item test from Quantity dropdown
+     *
+     * @return string
+     */
     public String getSelectedItemText() {
         Select select = new Select(quantitySelect);
         return select.getFirstSelectedOption().getText();
     }
 
+    /**
+     * Assert Page title
+     */
     public void assertPageTitle() {
         String actualText = elementControl.getTextFromElement(pageTitleLocator).trim();
         Assert.assertEquals(actualText, pageTitle);
     }
 
+    /**
+     * Verify Product details - Product title, Product price, Product quantity
+     *
+     * @param product Product
+     */
     public void verifyProductDetails(Product product) {
         String actualText = elementControl.getTextFromElement(productName).trim();
         // Check product name
-        Assert.assertEquals(actualText, product.getTitle());
+        Assert.assertTrue(assertProductTitle(actualText, product.getTitle()));
 
         // Check price
         Assert.assertEquals(elementControl.getFormattedPrice(productPrice), product.getPrice());
@@ -71,4 +91,14 @@ public class CartPage extends BasePage {
         Assert.assertEquals(subtotal, String.valueOf(expectedSubtotal));
     }
 
+    /**
+     * Assert Product title on Card page
+     *
+     * @param actualProductTitle string
+     * @param expectedProductTitle string
+     * @return boolean
+     */
+    public boolean assertProductTitle(String actualProductTitle, String expectedProductTitle) {
+        return actualProductTitle.contains(expectedProductTitle);
+    }
 }

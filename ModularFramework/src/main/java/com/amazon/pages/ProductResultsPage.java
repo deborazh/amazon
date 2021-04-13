@@ -10,8 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ProductResultsPage extends MainPage {
 
-    //    @FindBy(css = ".sg-col-inner .s-main-slot > div[data-uuid]:first-of-type h2")
-//    @FindBy(css = ".sg-col-inner .s-main-slot > div[data-uuid]:first-of-type h2 a")
     @FindBy(css = ".sg-col-inner .s-main-slot > div[data-uuid]:first-of-type")
     private WebElement firstProduct;
 
@@ -21,20 +19,19 @@ public class ProductResultsPage extends MainPage {
         PageFactory.initElements(driver, this);
     }
 
-    public String getFirstProductName() {
-        return getProductName(firstProduct);
-    }
-
-    public String getProductName(WebElement element) {
-        return element.getText().trim();
-    }
-
+    /**
+     * Click on first product from product results list
+     */
     public void clickOnFirstProductFromResult() {
         elementControl.clickElement(firstProduct);
     }
 
+    /**
+     * Get first Product from Product results list
+     *
+     * @return Product
+     */
     public Product getFirstProductFromResultsList() {
-//        Product product = new Product(firstProduct.getText().trim());
         Product product = new Product(firstProduct
                 .findElement(By.cssSelector("h2 a"))
                 .getText().trim());
@@ -45,6 +42,11 @@ public class ProductResultsPage extends MainPage {
         return product;
     }
 
+    /**
+     * Get Price from Product results list
+     *
+     * @return string
+     */
     private String getPrice() {
         String price = null;
         try {

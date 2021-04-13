@@ -31,18 +31,35 @@ public class ProductPage extends MainPage {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Click on "See All Buying Choices" button
+     */
     public void clickSeeAllBuyingChoicesButton() {
         elementControl.clickElement(seeAllBuyingChoicesButton);
     }
 
+    /**
+     * Get Price from Product list
+     *
+     * @return string
+     */
     public String getPriceFromProductList() {
         return elementControl.getFormattedPrice(firstOfferPrice);
     }
 
+    /**
+     * Add product from Offer List to Cart
+     */
     public void addProductFromOfferListToCart() {
         elementControl.clickElement(firstOfferAddToCartButton);
     }
 
+    /**
+     * Add product quantity
+     *
+     * @param quantity int
+     * @return int
+     */
     public int addProductQuantity(int quantity) {
         boolean isQualityDisplayed = elementControl.isPresented(quantitySelect);
         int newQty = quantity;
@@ -59,10 +76,16 @@ public class ProductPage extends MainPage {
         return newQty;
     }
 
+    /**
+     * Add product to card from Product Details page
+     */
     public void addProductToCardFromProductDetailsPage() {
         elementControl.clickElement(addToCartButton);
     }
 
+    /**
+     * Navigate user to Cart page
+     */
     public void navigateToCart() {
         elementControl.clickElement(cartButton);
     }
