@@ -88,6 +88,8 @@ public class CartPage extends BasePage {
         int productQuantity = product.getQuantity();
         double productPrice = Double.parseDouble(product.getPrice());
         double expectedSubtotal = productPrice * productQuantity;
+        // Round the expected subtotal value
+        expectedSubtotal = (double) Math.round(expectedSubtotal * 100) / 100;;
         Assert.assertEquals(subtotal, String.valueOf(expectedSubtotal));
     }
 
